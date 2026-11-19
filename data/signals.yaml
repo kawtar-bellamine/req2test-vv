@@ -1,0 +1,27 @@
+# Interface dictionary of the unit controller: words used in the requirements -> signals of the test bench.
+analog:
+  system pressure:            {signal: pressure, unit: bar, resolution: 1, nominal: 210, min: 0, max: 400}
+  fluid temperature:          {signal: temperature, unit: "°C", resolution: 0.5, nominal: 35, min: -20, max: 120}
+  pressure transmitter signal: {signal: pt_current, unit: mA, resolution: 0.1, nominal: 12.4, min: 0, max: 24}
+  motor current:              {signal: motor_current, unit: A, resolution: 0.5, nominal: 24, min: 0, max: 60}
+  operating hours since the last filter change: {signal: filter_hours, unit: h, resolution: 1, nominal: 100, min: 0, max: 5000}
+events:
+  start push button is pressed:  {signal: start, kind: pulse}
+  stop push button is pressed:   {signal: stop, kind: pulse}
+  reset push button is pressed:  {signal: reset, kind: pulse}
+  emergency stop is activated:   {signal: estop, kind: level, active: true}
+  low level switch opens:        {signal: level_ok, kind: level, active: false}
+  phase loss is detected:        {signal: phase_ok, kind: level, active: false}
+conditions:
+  no fault is active:            {check: no_fault}
+  the motor is running:          {check: motor_running}
+  a fault is active:             {check: fault_active}
+  the fault condition has cleared: {check: condition_cleared}
+  a fault code is set:           {check: fault_set}
+outputs:
+  motor contactor K1:  {signal: k1}
+  cooler fan:          {signal: fan}
+  fault code:          {signal: faults}
+  warning:             {signal: warnings}
+  fault log:           {signal: log}
+units: [bar, "°C", mA, A, h, ms, s, V, rpm, "%"]

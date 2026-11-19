@@ -1,0 +1,102 @@
+# HPU-200 unit controller, software requirements (fictional, written for this project).
+# ambiguous / issues are the reviewer's labels, used only to evaluate the quality checker.
+- id: REQ-001
+  text: When the start push button is pressed and no fault is active, the controller shall close the motor contactor K1 within 500 ms.
+- id: REQ-002
+  text: When the stop push button is pressed, the controller shall open the motor contactor K1 within 200 ms.
+- id: REQ-003
+  text: When the emergency stop is activated, the controller shall open the motor contactor K1 within 100 ms and set fault code E01.
+- id: REQ-004
+  text: When the system pressure exceeds 240 bar for more than 2 s, the controller shall open the motor contactor K1 and set fault code E12.
+- id: REQ-005
+  text: When the system pressure is below 150 bar for more than 10 s while the motor is running, the controller shall raise warning W03.
+- id: REQ-006
+  text: When the fluid temperature exceeds 70 °C, the controller shall open the motor contactor K1 and set fault code E34.
+- id: REQ-007
+  text: When the fluid temperature exceeds 45 °C, the controller shall start the cooler fan.
+- id: REQ-008
+  text: When the fluid temperature is below 40 °C, the controller shall stop the cooler fan.
+- id: REQ-009
+  text: When the low level switch opens, the controller shall open the motor contactor K1 within 1000 ms and set fault code E40.
+- id: REQ-010
+  text: When the pressure transmitter signal is below 3.6 mA, the controller shall set fault code E21.
+- id: REQ-011
+  text: When the pressure transmitter signal exceeds 21 mA, the controller shall set fault code E21.
+- id: REQ-012
+  text: If a phase loss is detected, then the controller shall set fault code E05.
+- id: REQ-013
+  text: While a fault is active, the controller shall keep the motor contactor K1 open.
+- id: REQ-014
+  text: When the reset push button is pressed and the fault condition has cleared, the controller shall clear the active faults.
+- id: REQ-015
+  text: When the fluid temperature is below 10 °C, the controller shall raise warning W07 and inhibit the motor start.
+- id: REQ-016
+  text: When the operating hours since the last filter change exceed 500 h, the controller shall raise warning W20.
+- id: REQ-017
+  text: When the motor current exceeds 32 A for more than 5 s, the controller shall open the motor contactor K1 and set fault code E07.
+- id: REQ-018
+  text: When a fault code is set, the controller shall write the fault code and a time stamp to the fault log.
+- id: REQ-019
+  text: When the fluid temperature exceeds 60 °C, the controller shall raise warning W30.
+- id: REQ-020
+  text: When the system pressure exceeds 230 bar, the controller shall raise warning W11.
+- id: REQ-021
+  text: The controller shall respond quickly to operator commands.
+  ambiguous: true
+  issues: [weak_word, no_timing]
+- id: REQ-022
+  text: The unit shall be easy to maintain.
+  ambiguous: true
+  issues: [unverifiable]
+- id: REQ-023
+  text: When the pressure is too high, the controller shall take appropriate action.
+  ambiguous: true
+  issues: [vague_condition, vague_response]
+- id: REQ-024
+  text: The cooler fan should start when the oil is hot.
+  ambiguous: true
+  issues: [should, vague_condition]
+- id: REQ-025
+  text: The controller shall display the pressure and/or the temperature.
+  ambiguous: true
+  issues: [and_or]
+- id: REQ-026
+  text: When the temperature exceeds 60, the controller shall raise warning W30.
+  ambiguous: true
+  issues: [missing_unit]
+- id: REQ-027
+  text: The alarm lamp shall flash as soon as possible after a fault.
+  ambiguous: true
+  issues: [weak_word, no_timing]
+- id: REQ-028
+  text: The motor shall be stopped if necessary.
+  ambiguous: true
+  issues: [escape_clause, passive_no_actor]
+- id: REQ-029
+  text: The controller shall support all relevant fault codes.
+  ambiguous: true
+  issues: [vague_quantifier]
+- id: REQ-030
+  text: When the level is low, the reservoir warning shall be displayed.
+  ambiguous: true
+  issues: [vague_condition, passive_no_actor]
+- id: REQ-031
+  text: The controller shall normally restart the pump after a short power cut.
+  ambiguous: true
+  issues: [weak_word, no_timing]
+- id: REQ-032
+  text: When the pressure set point is changed, the pressure shall be adjusted accordingly.
+  ambiguous: true
+  issues: [vague_response, passive_no_actor]
+- id: REQ-033
+  text: The controller shall be robust to sensor failures, etc.
+  ambiguous: true
+  issues: [unverifiable, open_list]
+- id: REQ-034
+  text: When the motor current exceeds 32 A, the controller shall stop the motor, possibly after a delay.
+  ambiguous: true
+  issues: [weak_word, no_timing]
+- id: REQ-035
+  text: When the stop push button is pressed, the controller shall open the motor contactor K1 within 200 ms, unless maintenance mode is active.
+  ambiguous: true
+  issues: [undefined_term]

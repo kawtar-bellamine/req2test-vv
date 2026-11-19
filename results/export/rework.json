@@ -1,0 +1,211 @@
+[
+ {
+  "id": "REQ-021",
+  "text": "The controller shall respond quickly to operator commands.",
+  "issues": [
+   "not_ears",
+   "weak_word"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-022",
+  "text": "The unit shall be easy to maintain.",
+  "issues": [
+   "not_ears",
+   "weak_word"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-023",
+  "text": "When the pressure is too high, the controller shall take appropriate action.",
+  "issues": [
+   "response_not_in_dictionary",
+   "trigger_not_in_dictionary",
+   "vague_condition",
+   "weak_word"
+  ],
+  "suggestions": [
+   "use an output of the interface dictionary, or add the output to it",
+   "use a signal of the interface dictionary, or add the signal to it",
+   "give the signal and its threshold, for example 'system pressure exceeds 240 bar'",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-024",
+  "text": "The cooler fan should start when the oil is hot.",
+  "issues": [
+   "not_ears",
+   "should",
+   "vague_condition"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "use 'shall' for a mandatory requirement",
+   "give the signal and its threshold, for example 'system pressure exceeds 240 bar'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-025",
+  "text": "The controller shall display the pressure and/or the temperature.",
+  "issues": [
+   "and_or",
+   "not_ears"
+  ],
+  "suggestions": [
+   "split into two requirements or choose 'and' or 'or'",
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-026",
+  "text": "When the temperature exceeds 60, the controller shall raise warning W30.",
+  "issues": [
+   "missing_unit",
+   "trigger_not_in_dictionary"
+  ],
+  "suggestions": [
+   "add the unit of the value",
+   "use a signal of the interface dictionary, or add the signal to it"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-027",
+  "text": "The alarm lamp shall flash as soon as possible after a fault.",
+  "issues": [
+   "not_ears",
+   "weak_word"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-028",
+  "text": "The motor shall be stopped if necessary.",
+  "issues": [
+   "escape_clause",
+   "not_ears",
+   "passive_no_actor"
+  ],
+  "suggestions": [
+   "state the exact condition instead of 'if necessary' or 'unless'",
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "name the actor: 'the controller shall ...'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-029",
+  "text": "The controller shall support all relevant fault codes.",
+  "issues": [
+   "not_ears",
+   "vague_quantifier"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "name the items, for example the fault codes E01 to E40"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-030",
+  "text": "When the level is low, the reservoir warning shall be displayed.",
+  "issues": [
+   "not_ears",
+   "passive_no_actor",
+   "vague_condition"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "name the actor: 'the controller shall ...'",
+   "give the signal and its threshold, for example 'system pressure exceeds 240 bar'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-031",
+  "text": "The controller shall normally restart the pump after a short power cut.",
+  "issues": [
+   "not_ears",
+   "weak_word"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-032",
+  "text": "When the pressure set point is changed, the pressure shall be adjusted accordingly.",
+  "issues": [
+   "not_ears",
+   "passive_no_actor",
+   "weak_word"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "name the actor: 'the controller shall ...'",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-033",
+  "text": "The controller shall be robust to sensor failures, etc.",
+  "issues": [
+   "not_ears",
+   "open_list",
+   "weak_word"
+  ],
+  "suggestions": [
+   "rewrite with an EARS pattern: 'When <trigger>, the controller shall <response>.'",
+   "list every case explicitly, remove 'etc.'",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-034",
+  "text": "When the motor current exceeds 32 A, the controller shall stop the motor, possibly after a delay.",
+  "issues": [
+   "response_not_in_dictionary",
+   "weak_word"
+  ],
+  "suggestions": [
+   "use an output of the interface dictionary, or add the output to it",
+   "replace the vague word by a measurable value, for example 'within 200 ms'"
+  ],
+  "llm_rewrite": null
+ },
+ {
+  "id": "REQ-035",
+  "text": "When the stop push button is pressed, the controller shall open the motor contactor K1 within 200 ms, unless maintenance mode is active.",
+  "issues": [
+   "escape_clause",
+   "response_not_in_dictionary"
+  ],
+  "suggestions": [
+   "state the exact condition instead of 'if necessary' or 'unless'",
+   "use an output of the interface dictionary, or add the output to it"
+  ],
+  "llm_rewrite": null
+ }
+]

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+web/node_modules/
+data/review.json
+results/export_review/
+data/fret

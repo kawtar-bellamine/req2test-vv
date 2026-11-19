@@ -1,0 +1,2948 @@
+[
+ {
+  "id": "TC-001-01",
+  "requirement": "REQ-001",
+  "technique": "timing",
+  "title": "start then response checked at the 500 ms deadline",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-001-02",
+  "requirement": "REQ-001",
+  "technique": "guard",
+  "title": "start while a fault is active: K1 never closes",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "watch",
+    "signal": "k1",
+    "value": false,
+    "ms": 1000
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-002-01",
+  "requirement": "REQ-002",
+  "technique": "timing",
+  "title": "stop then response checked at the 200 ms deadline",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "pulse",
+    "signal": "stop"
+   },
+   {
+    "op": "wait",
+    "ms": 200
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-003-01",
+  "requirement": "REQ-003",
+  "technique": "timing",
+  "title": "estop then response checked at the 100 ms deadline",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 100
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E01"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-003-02",
+  "requirement": "REQ-003",
+  "technique": "logging",
+  "title": "estop writes E01 with a time stamp in the fault log",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 100
+   },
+   {
+    "op": "expect",
+    "signal": "log",
+    "value": "E01"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-004-01",
+  "requirement": "REQ-004",
+  "technique": "nominal",
+  "title": "pressure at 245.0 bar for 2500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 245.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 2500
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E12"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-004-02",
+  "requirement": "REQ-004",
+  "technique": "boundary",
+  "title": "pressure exactly at the threshold 240.0 bar: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 240.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 2500
+   },
+   {
+    "op": "expect_not",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E12"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-004-03",
+  "requirement": "REQ-004",
+  "technique": "boundary",
+  "title": "pressure one step beyond the threshold (241.0 bar) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 241.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 2500
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E12"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-004-04",
+  "requirement": "REQ-004",
+  "technique": "timing",
+  "title": "pressure beyond the threshold for less than 2000 ms: no response yet, then response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 245.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 1800
+   },
+   {
+    "op": "expect_not",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E12"
+   },
+   {
+    "op": "wait",
+    "ms": 400
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E12"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-005-01",
+  "requirement": "REQ-005",
+  "technique": "nominal",
+  "title": "pressure at 145.0 bar for 10500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 145.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 10500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W03"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-005-02",
+  "requirement": "REQ-005",
+  "technique": "boundary",
+  "title": "pressure exactly at the threshold 150.0 bar: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 150.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 10500
+   },
+   {
+    "op": "expect_not",
+    "signal": "warnings",
+    "value": "W03"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-005-03",
+  "requirement": "REQ-005",
+  "technique": "boundary",
+  "title": "pressure one step beyond the threshold (149.0 bar) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 149.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 10500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W03"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-005-04",
+  "requirement": "REQ-005",
+  "technique": "timing",
+  "title": "pressure beyond the threshold for less than 10000 ms: no response yet, then response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 145.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 9800
+   },
+   {
+    "op": "expect_not",
+    "signal": "warnings",
+    "value": "W03"
+   },
+   {
+    "op": "wait",
+    "ms": 400
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W03"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-005-05",
+  "requirement": "REQ-005",
+  "technique": "guard",
+  "title": "pressure beyond the threshold with the motor stopped: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 145.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 10500
+   },
+   {
+    "op": "expect_not",
+    "signal": "warnings",
+    "value": "W03"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-006-01",
+  "requirement": "REQ-006",
+  "technique": "nominal",
+  "title": "temperature at 72.5 °C for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 72.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E34"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-006-02",
+  "requirement": "REQ-006",
+  "technique": "boundary",
+  "title": "temperature exactly at the threshold 70.0 °C: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 70.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E34"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-006-03",
+  "requirement": "REQ-006",
+  "technique": "boundary",
+  "title": "temperature one step beyond the threshold (70.5 °C) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 70.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E34"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-007-01",
+  "requirement": "REQ-007",
+  "technique": "nominal",
+  "title": "temperature at 47.5 °C for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 47.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "fan",
+    "value": true
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-007-02",
+  "requirement": "REQ-007",
+  "technique": "boundary",
+  "title": "temperature exactly at the threshold 45.0 °C: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 45.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "fan",
+    "value": true
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-007-03",
+  "requirement": "REQ-007",
+  "technique": "boundary",
+  "title": "temperature one step beyond the threshold (45.5 °C) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 45.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "fan",
+    "value": true
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-008-01",
+  "requirement": "REQ-008",
+  "technique": "nominal",
+  "title": "temperature at 37.5 °C for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 50.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "expect",
+    "signal": "fan",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 37.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "fan",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-008-02",
+  "requirement": "REQ-008",
+  "technique": "boundary",
+  "title": "temperature exactly at the threshold 40.0 °C: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 50.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "expect",
+    "signal": "fan",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 40.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "fan",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-008-03",
+  "requirement": "REQ-008",
+  "technique": "boundary",
+  "title": "temperature one step beyond the threshold (39.5 °C) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 50.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "expect",
+    "signal": "fan",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 39.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "fan",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-009-01",
+  "requirement": "REQ-009",
+  "technique": "timing",
+  "title": "level_ok then response checked at the 1000 ms deadline",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "level_ok": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 1000
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E40"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-009-02",
+  "requirement": "REQ-009",
+  "technique": "logging",
+  "title": "level_ok writes E40 with a time stamp in the fault log",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "level_ok": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 1000
+   },
+   {
+    "op": "expect",
+    "signal": "log",
+    "value": "E40"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-010-01",
+  "requirement": "REQ-010",
+  "technique": "nominal",
+  "title": "pt_current at 3.1 mA for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pt_current": 3.1
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E21"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-010-02",
+  "requirement": "REQ-010",
+  "technique": "boundary",
+  "title": "pt_current exactly at the threshold 3.6 mA: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pt_current": 3.6
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E21"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-010-03",
+  "requirement": "REQ-010",
+  "technique": "boundary",
+  "title": "pt_current one step beyond the threshold (3.5 mA) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pt_current": 3.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E21"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-011-01",
+  "requirement": "REQ-011",
+  "technique": "nominal",
+  "title": "pt_current at 21.5 mA for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pt_current": 21.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E21"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-011-02",
+  "requirement": "REQ-011",
+  "technique": "boundary",
+  "title": "pt_current exactly at the threshold 21.0 mA: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pt_current": 21.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E21"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-011-03",
+  "requirement": "REQ-011",
+  "technique": "boundary",
+  "title": "pt_current one step beyond the threshold (21.1 mA) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pt_current": 21.1
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E21"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-012-01",
+  "requirement": "REQ-012",
+  "technique": "timing",
+  "title": "phase_ok then response checked at the 500 ms deadline",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "phase_ok": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E05"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-012-02",
+  "requirement": "REQ-012",
+  "technique": "logging",
+  "title": "phase_ok writes E05 with a time stamp in the fault log",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "phase_ok": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "log",
+    "value": "E05"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-013-01",
+  "requirement": "REQ-013",
+  "technique": "state",
+  "title": "with a latched fault, a start command never closes K1",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "watch",
+    "signal": "k1",
+    "value": false,
+    "ms": 700
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-013-02",
+  "requirement": "REQ-013",
+  "technique": "state",
+  "title": "a fault raised while running opens K1 and keeps it open after the cause is gone",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 700
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-014-01",
+  "requirement": "REQ-014",
+  "technique": "nominal",
+  "title": "reset with the fault condition gone clears the fault",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E01"
+   },
+   {
+    "op": "pulse",
+    "signal": "reset"
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E01"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-014-02",
+  "requirement": "REQ-014",
+  "technique": "guard",
+  "title": "reset while the fault condition is still present keeps the fault",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "pulse",
+    "signal": "reset"
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E01"
+   },
+   {
+    "op": "watch",
+    "signal": "faults",
+    "value": "E01",
+    "ms": 100
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-015-01",
+  "requirement": "REQ-015",
+  "technique": "nominal",
+  "title": "temperature at 7.5 °C for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 7.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W07"
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-015-02",
+  "requirement": "REQ-015",
+  "technique": "boundary",
+  "title": "temperature exactly at the threshold 10.0 °C: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 10.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "warnings",
+    "value": "W07"
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect_not",
+    "signal": "k1",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-015-03",
+  "requirement": "REQ-015",
+  "technique": "boundary",
+  "title": "temperature one step beyond the threshold (9.5 °C) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 9.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W07"
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-016-01",
+  "requirement": "REQ-016",
+  "technique": "nominal",
+  "title": "filter_hours at 505.0 h for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "filter_hours": 505.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W20"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-016-02",
+  "requirement": "REQ-016",
+  "technique": "boundary",
+  "title": "filter_hours exactly at the threshold 500.0 h: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "filter_hours": 500.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "warnings",
+    "value": "W20"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-016-03",
+  "requirement": "REQ-016",
+  "technique": "boundary",
+  "title": "filter_hours one step beyond the threshold (501.0 h) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "filter_hours": 501.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W20"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-017-01",
+  "requirement": "REQ-017",
+  "technique": "nominal",
+  "title": "motor_current at 34.5 A for 5500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "motor_current": 34.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 5500
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E07"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-017-02",
+  "requirement": "REQ-017",
+  "technique": "boundary",
+  "title": "motor_current exactly at the threshold 32.0 A: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "motor_current": 32.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 5500
+   },
+   {
+    "op": "expect_not",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E07"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-017-03",
+  "requirement": "REQ-017",
+  "technique": "boundary",
+  "title": "motor_current one step beyond the threshold (32.5 A) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "motor_current": 32.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 5500
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E07"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-017-04",
+  "requirement": "REQ-017",
+  "technique": "timing",
+  "title": "motor_current beyond the threshold for less than 5000 ms: no response yet, then response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "motor_current": 34.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 4800
+   },
+   {
+    "op": "expect_not",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect_not",
+    "signal": "faults",
+    "value": "E07"
+   },
+   {
+    "op": "wait",
+    "ms": 400
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": false
+   },
+   {
+    "op": "expect",
+    "signal": "faults",
+    "value": "E07"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-018-01",
+  "requirement": "REQ-018",
+  "technique": "nominal",
+  "title": "a fault is written to the log with its time stamp",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": true
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "set",
+    "values": {
+     "estop": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "expect",
+    "signal": "log",
+    "value": "E01"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-018-02",
+  "requirement": "REQ-018",
+  "technique": "logging",
+  "title": "a second fault of another type is logged too",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "phase_ok": false
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 50
+   },
+   {
+    "op": "expect",
+    "signal": "log",
+    "value": "E05"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-019-01",
+  "requirement": "REQ-019",
+  "technique": "nominal",
+  "title": "temperature at 62.5 °C for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 62.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W30"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-019-02",
+  "requirement": "REQ-019",
+  "technique": "boundary",
+  "title": "temperature exactly at the threshold 60.0 °C: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 60.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "warnings",
+    "value": "W30"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-019-03",
+  "requirement": "REQ-019",
+  "technique": "boundary",
+  "title": "temperature one step beyond the threshold (60.5 °C) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "temperature": 60.5
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W30"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-020-01",
+  "requirement": "REQ-020",
+  "technique": "nominal",
+  "title": "pressure at 235.0 bar for 500 ms gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 235.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W11"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-020-02",
+  "requirement": "REQ-020",
+  "technique": "boundary",
+  "title": "pressure exactly at the threshold 230.0 bar: no response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 230.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect_not",
+    "signal": "warnings",
+    "value": "W11"
+   }
+  ],
+  "status": "approved"
+ },
+ {
+  "id": "TC-020-03",
+  "requirement": "REQ-020",
+  "technique": "boundary",
+  "title": "pressure one step beyond the threshold (231.0 bar) gives the response",
+  "steps": [
+   {
+    "op": "set",
+    "values": {
+     "pressure": 210.0,
+     "temperature": 35.0,
+     "pt_current": 12.4,
+     "motor_current": 24.0,
+     "filter_hours": 100.0,
+     "estop": false,
+     "level_ok": true,
+     "phase_ok": true
+    }
+   },
+   {
+    "op": "pulse",
+    "signal": "start"
+   },
+   {
+    "op": "wait",
+    "ms": 600
+   },
+   {
+    "op": "expect",
+    "signal": "k1",
+    "value": true
+   },
+   {
+    "op": "set",
+    "values": {
+     "pressure": 231.0
+    }
+   },
+   {
+    "op": "wait",
+    "ms": 500
+   },
+   {
+    "op": "expect",
+    "signal": "warnings",
+    "value": "W11"
+   }
+  ],
+  "status": "approved"
+ }
+]

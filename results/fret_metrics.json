@@ -1,0 +1,558 @@
+{
+ "LiquidMixer": {
+  "requirements": 12,
+  "parsed": 12,
+  "review": {
+   "scope_notes": [],
+   "conflicts": [
+    {
+     "reqs": [
+      "LM-001",
+      "LM-009"
+     ],
+     "texts": [
+      "when start_button liquid_mixer shall immediately satisfy if ! liquid_level_1 then valve_0",
+      "when emergency_button, the liquid_mixer shall immediately satisfy ! valve_0"
+     ],
+     "witnesses": 4,
+     "example": {
+      "emergency_button": true,
+      "start_button": true
+     }
+    }
+   ]
+  },
+  "generated": {
+   "tests": 96,
+   "steps": 789,
+   "triggered": [
+    12,
+    12
+   ],
+   "mutants": 44,
+   "killed": 36,
+   "score": 0.818,
+   "survivors": [
+    "line 12: assignment deleted",
+    "line 13: False -> True",
+    "line 14: False -> True",
+    "line 15: and/or swapped",
+    "line 26: False -> True",
+    "line 26: assignment deleted",
+    "line 30: False -> True",
+    "line 30: assignment deleted"
+   ]
+  },
+  "random": {
+   "tests": 101,
+   "steps": 791,
+   "triggered": [
+    12,
+    12
+   ],
+   "mutants": 44,
+   "killed": 36,
+   "score": 0.818,
+   "survivors": [
+    "line 12: assignment deleted",
+    "line 13: False -> True",
+    "line 14: False -> True",
+    "line 15: and/or swapped",
+    "line 26: False -> True",
+    "line 26: assignment deleted",
+    "line 30: False -> True",
+    "line 30: assignment deleted"
+   ]
+  },
+  "requirements_failed_by_the_implementation": [
+   "LM-001",
+   "LM-003"
+  ],
+  "budget": [
+   {
+    "per_req": 1,
+    "seed": 0,
+    "steps": 101,
+    "generated": 0.795,
+    "random": 0.795
+   },
+   {
+    "per_req": 1,
+    "seed": 1,
+    "steps": 96,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 1,
+    "seed": 2,
+    "steps": 93,
+    "generated": 0.818,
+    "random": 0.795
+   },
+   {
+    "per_req": 2,
+    "seed": 0,
+    "steps": 193,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 2,
+    "seed": 1,
+    "steps": 189,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 2,
+    "seed": 2,
+    "steps": 186,
+    "generated": 0.818,
+    "random": 0.795
+   },
+   {
+    "per_req": 4,
+    "seed": 0,
+    "steps": 381,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 4,
+    "seed": 1,
+    "steps": 383,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 4,
+    "seed": 2,
+    "steps": 380,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 8,
+    "seed": 0,
+    "steps": 789,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 8,
+    "seed": 1,
+    "steps": 782,
+    "generated": 0.818,
+    "random": 0.818
+   },
+   {
+    "per_req": 8,
+    "seed": 2,
+    "steps": 739,
+    "generated": 0.818,
+    "random": 0.818
+   }
+  ],
+  "realistic_cycle": {
+   "steps": [
+    {
+     "inputs": [
+      "start_button"
+     ],
+     "outputs": [
+      "valve_0"
+     ]
+    },
+    {
+     "inputs": [],
+     "outputs": [
+      "valve_0"
+     ]
+    },
+    {
+     "inputs": [
+      "liquid_level_1"
+     ],
+     "outputs": [
+      "valve_1"
+     ]
+    },
+    {
+     "inputs": [
+      "liquid_level_1"
+     ],
+     "outputs": [
+      "valve_1"
+     ]
+    },
+    {
+     "inputs": [
+      "liquid_level_1",
+      "liquid_level_2"
+     ],
+     "outputs": [
+      "stirring_motor",
+      "timer_60sec_start"
+     ]
+    },
+    {
+     "inputs": [
+      "liquid_level_1",
+      "liquid_level_2"
+     ],
+     "outputs": [
+      "stirring_motor",
+      "timer_60sec_start"
+     ]
+    },
+    {
+     "inputs": [
+      "liquid_level_1",
+      "liquid_level_2",
+      "timer_60sec_expire"
+     ],
+     "outputs": [
+      "timer_120sec_start",
+      "timer_60sec_start",
+      "valve_2"
+     ]
+    },
+    {
+     "inputs": [
+      "liquid_level_1",
+      "liquid_level_2"
+     ],
+     "outputs": [
+      "stirring_motor",
+      "timer_60sec_start",
+      "valve_2"
+     ]
+    },
+    {
+     "inputs": [
+      "liquid_level_1"
+     ],
+     "outputs": [
+      "stirring_motor",
+      "valve_1",
+      "valve_2"
+     ]
+    },
+    {
+     "inputs": [],
+     "outputs": [
+      "stirring_motor",
+      "valve_1",
+      "valve_2"
+     ]
+    },
+    {
+     "inputs": [
+      "timer_120sec_expire"
+     ],
+     "outputs": [
+      "stirring_motor",
+      "valve_1"
+     ]
+    },
+    {
+     "inputs": [],
+     "outputs": [
+      "stirring_motor",
+      "valve_1"
+     ]
+    }
+   ],
+   "violated": {}
+  }
+ },
+ "FSM": {
+  "requirements": 13,
+  "parsed": 13,
+  "review": {
+   "scope_notes": [
+    {
+     "req": "FSM-007",
+     "issue": "applies only at the start of the run",
+     "detail": "'within 5' without a condition constrains the first 6 step(s) only; the rationale describes a rule that holds at all times"
+    },
+    {
+     "req": "FSM-006",
+     "issue": "applies only at the start of the run",
+     "detail": "'for 5' without a condition constrains the first 6 step(s) only; the rationale describes a rule that holds at all times"
+    }
+   ],
+   "conflicts": [
+    {
+     "reqs": [
+      "FSM-005",
+      "FSM-004"
+     ],
+     "texts": [
+      "FSM shall always satisfy (state=ap_nominal_state & standby) => STATE = ap_standby_state",
+      "FSM shall always satisfy (! good & state = ap_nominal_state) => STATE = ap_maneuver_state"
+     ],
+     "witnesses": 48,
+     "example": {
+      "standby": true,
+      "state": 1,
+      "senstate": 0
+     }
+    },
+    {
+     "reqs": [
+      "FSM-011",
+      "FSM-010"
+     ],
+     "texts": [
+      "FSM shall always satisfy (senstate = sen_nominal_state & !request) => SENSTATE = sen_transition_state",
+      "FSM shall always satisfy (senstate = sen_nominal_state & limits) => SENSTATE = sen_fault_state"
+     ],
+     "witnesses": 64,
+     "example": {
+      "limits": true,
+      "state": 0,
+      "senstate": 0
+     }
+    },
+    {
+     "reqs": [
+      "FSM-002",
+      "FSM-003"
+     ],
+     "texts": [
+      "FSM shall always satisfy (standby & state = ap_transition_state) => STATE = ap_standby_state",
+      "FSM shall always satisfy (state = ap_transition_state & good & supported) => STATE = ap_nominal_state"
+     ],
+     "witnesses": 24,
+     "example": {
+      "good": true,
+      "standby": true,
+      "supported": true,
+      "state": 0,
+      "senstate": 0
+     }
+    },
+    {
+     "reqs": [
+      "FSM-008",
+      "FSM-009"
+     ],
+     "texts": [
+      "FSM shall always satisfy (state = ap_standby_state & !standby) => STATE = ap_transition_state",
+      "FSM shall always satisfy (state = ap_standby_state & apfail )=> STATE = ap_maneuver_state"
+     ],
+     "witnesses": 48,
+     "example": {
+      "apfail": true,
+      "state": 3,
+      "senstate": 0
+     }
+    }
+   ]
+  },
+  "generated": {
+   "tests": 104,
+   "steps": 795,
+   "triggered": [
+    0,
+    0
+   ],
+   "mutants": 55,
+   "killed": 48,
+   "score": 0.873,
+   "survivors": [
+    "line 19: and/or swapped",
+    "line 27: and/or swapped",
+    "line 29: and/or swapped",
+    "line 30: assignment deleted",
+    "line 29: condition negated",
+    "line 44: and/or swapped",
+    "line 49: and/or swapped"
+   ]
+  },
+  "random": {
+   "tests": 100,
+   "steps": 802,
+   "triggered": [
+    0,
+    0
+   ],
+   "mutants": 55,
+   "killed": 48,
+   "score": 0.873,
+   "survivors": [
+    "line 19: and/or swapped",
+    "line 27: and/or swapped",
+    "line 29: and/or swapped",
+    "line 30: assignment deleted",
+    "line 29: condition negated",
+    "line 44: and/or swapped",
+    "line 49: and/or swapped"
+   ]
+  },
+  "requirements_failed_by_the_implementation": [
+   "FSM-003",
+   "FSM-004",
+   "FSM-008",
+   "FSM-011"
+  ],
+  "budget": [
+   {
+    "per_req": 1,
+    "seed": 0,
+    "steps": 102,
+    "generated": 0.836,
+    "random": 0.836
+   },
+   {
+    "per_req": 1,
+    "seed": 1,
+    "steps": 99,
+    "generated": 0.836,
+    "random": 0.8
+   },
+   {
+    "per_req": 1,
+    "seed": 2,
+    "steps": 100,
+    "generated": 0.873,
+    "random": 0.8
+   },
+   {
+    "per_req": 2,
+    "seed": 0,
+    "steps": 199,
+    "generated": 0.873,
+    "random": 0.873
+   },
+   {
+    "per_req": 2,
+    "seed": 1,
+    "steps": 206,
+    "generated": 0.873,
+    "random": 0.836
+   },
+   {
+    "per_req": 2,
+    "seed": 2,
+    "steps": 198,
+    "generated": 0.873,
+    "random": 0.836
+   },
+   {
+    "per_req": 4,
+    "seed": 0,
+    "steps": 396,
+    "generated": 0.873,
+    "random": 0.873
+   },
+   {
+    "per_req": 4,
+    "seed": 1,
+    "steps": 422,
+    "generated": 0.873,
+    "random": 0.873
+   },
+   {
+    "per_req": 4,
+    "seed": 2,
+    "steps": 398,
+    "generated": 0.873,
+    "random": 0.873
+   },
+   {
+    "per_req": 8,
+    "seed": 0,
+    "steps": 795,
+    "generated": 0.873,
+    "random": 0.873
+   },
+   {
+    "per_req": 8,
+    "seed": 1,
+    "steps": 814,
+    "generated": 0.873,
+    "random": 0.873
+   },
+   {
+    "per_req": 8,
+    "seed": 2,
+    "steps": 793,
+    "generated": 0.873,
+    "random": 0.873
+   }
+  ]
+ },
+ "LiftPlusCruise": {
+  "requirements": 57,
+  "parsed": 44,
+  "not_parsed": {
+   "LPC_WB_STAY_ON_pre": "function preBool() not supported",
+   "LPC_CR_STAY_OFF": "function preBool() not supported",
+   "LPC_SWB_STAY_ON_pre": "function preBool() not supported",
+   "LPC_DR_STAY_OFF": "function preBool() not supported",
+   "LPC_KIAS_DERIVATIVE": "function absReal() not supported",
+   "LPC_FCS_STAY_OFF": "function preBool() not supported",
+   "LPC_CR_STAY_ON": "function preBool() not supported",
+   "LPC_DR_STAY_ON": "function preBool() not supported",
+   "LPC_FCS_STAY_ON": "function preBool() not supported",
+   "LPC_WIND_SPEED_DERIV_assumption": "function absReal() not supported",
+   "LPC_STB_STAY_ON_pre": "function preBool() not supported",
+   "LPC_TB_STAY_ON_pre": "function preBool() not supported",
+   "LPC_WIND_SPEED_20_assumption": "function absReal() not supported"
+  }
+ },
+ "LMCPS": {
+  "requirements": 97,
+  "parsed": 52,
+  "not_parsed": {
+   "AP-010bv2": "trailing tokens: hdg",
+   "EUL-004": "function absReal() not supported",
+   "AP-010av2": "trailing tokens: hdg when preBool ( false , absReal ( Psi - HDGmodeCmd - preReal ( 113.0 , Psi - HDGmodeCmd ) ) <= 1.0 )",
+   "EUL-008": "function det_3x3() not supported",
+   "NN-004": "timing not supported: for 200 secs",
+   "EUL-001C": "function sin() not supported",
+   "TSM-004": "function absReal() not supported",
+   "AP-002": "scopes (in / before / after mode ...) not supported",
+   "EUL-001I": "function cos() not supported",
+   "EB-001": "function det_3x3() not supported",
+   "AP-010a": "function preBool() not supported",
+   "NLG-002&3": "function mag() not supported",
+   "EUL-001A": "function cos() not supported",
+   "EB-002": "function det_3x3() not supported",
+   "AP-003A": "scopes (in / before / after mode ...) not supported",
+   "TSM-001": "function preBool() not supported",
+   "NN-003B": "timing not supported: for 200 secs",
+   "AP-010b": "trailing tokens: hdg mode",
+   "REG-004": "function persisted() not supported",
+   "REG-001": "function persisted() not supported",
+   "EUL-001d": "function cos() not supported",
+   "FSM-001v2": "function preBool() not supported",
+   "FSM-001v3": "function persisted() not supported",
+   "REG-005": "function persisted() not supported",
+   "AP-004a": "function preBool() not supported",
+   "NLG-005a": "function mag() not supported",
+   "AP-000": "function absReal() not supported",
+   "NLG-005b": "function mag() not supported",
+   "AP-004b": "scopes (in / before / after mode ...) not supported",
+   "NN-003A": "timing not supported: for 200 secs",
+   "AP-005": "function absReal() not supported",
+   "EUL-001F": "function sin() not supported",
+   "AP-003B": "scopes (in / before / after mode ...) not supported",
+   "SWIM-001a": "function sqrt() not supported",
+   "NLG-006": "function mag() not supported",
+   "SWIM-001b": "function sqrt() not supported",
+   "EUL-001G": "function sin() not supported",
+   "REG-002": "function persisted() not supported",
+   "NLG-007": "function yout() not supported",
+   "EUL-001E": "function cos() not supported",
+   "REG-003": "function persisted() not supported",
+   "AP-008": "scopes (in / before / after mode ...) not supported",
+   "AP-003C": "scopes (in / before / after mode ...) not supported",
+   "EUL-001B": "function cos() not supported",
+   "EUL-001H": "function sin() not supported"
+  }
+ }
+}
